@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "e460c180-fb9a-43c1-b08f-d1078d129ff4",
+		"name": "Catalog browsing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19252417",
+		"_collection_link": "https://warped-sunset-750368.postman.co/workspace/Tests-art-deco.ua~6e16e7b0-705b-4dbc-b85a-7b9df7dff017/collection/19252417-e460c180-fb9a-43c1-b08f-d1078d129ff4?action=share&source=collection_link&creator=19252417"
+	},
+	"item": [
+		{
+			"name": "Open 1-lvl cat. categories page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// pm.test(\"Response time is less than 200ms\", function () {\r",
+							"//     pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"// });\r",
+							"\r",
+							"// Get the response body\r",
+							"var responseBody = pm.response.text();\r",
+							"\r",
+							"// Use cheerio to parse HTML\r",
+							"let $ = cheerio.load(responseBody);\r",
+							"\r",
+							"// Extract text from an element with a specific ID\r",
+							"let textFromElement = $('#pagetitle').text(); \r",
+							"\r",
+							"// Check if the extracted text is as expected\r",
+							"pm.test(\"Text extracted is as expected\", function () {\r",
+							"    pm.expect(textFromElement).to.eql(\"Графіка\"); \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.art-deco.ua/catalog/grafika/",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"catalog",
+						"grafika",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Open 2-lvl cat. categories page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// pm.test(\"Response time is less than 200ms\", function () {\r",
+							"//     pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"// });\r",
+							"\r",
+							"// Get the response body\r",
+							"var responseBody = pm.response.text();\r",
+							"\r",
+							"// Use cheerio to parse HTML\r",
+							"let $ = cheerio.load(responseBody);\r",
+							"\r",
+							"// Extract text from an element with a specific ID\r",
+							"let textFromElement = $('#pagetitle').text(); \r",
+							"\r",
+							"//  Check if the extracted text is as expected\r",
+							"pm.test(\"Text extracted is as expected\", function () {\r",
+							"    pm.expect(textFromElement).to.eql(\"Пастель\"); \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.art-deco.ua/catalog/grafika/pastel/",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"catalog",
+						"grafika",
+						"pastel",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Open 3-lvl cat. categories page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// pm.test(\"Response time is less than 200ms\", function () {\r",
+							"//     pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"// });\r",
+							"\r",
+							"// Get the response body\r",
+							"var responseBody = pm.response.text();\r",
+							"\r",
+							"// Use cheerio to parse HTML\r",
+							"let $ = cheerio.load(responseBody);\r",
+							"\r",
+							"// Extract text from an element with a specific ID\r",
+							"let textFromElement = $('#pagetitle').text(); \r",
+							"\r",
+							"// Check if the extracted text is as expected\r",
+							"pm.test(\"Text extracted is as expected\", function () {\r",
+							"    pm.expect(textFromElement).to.eql(\"Олійна пастель\"); \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.art-deco.ua/catalog/grafika/pastel/oliyna-pastel/",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"catalog",
+						"grafika",
+						"pastel",
+						"oliyna-pastel",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Open 4-lvl cat. categories page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// pm.test(\"Response time is less than 200ms\", function () {\r",
+							"//     pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"// });\r",
+							"\r",
+							"// Get the response body\r",
+							"var responseBody = pm.response.text();\r",
+							"\r",
+							"// Use cheerio to parse HTML\r",
+							"let $ = cheerio.load(responseBody);\r",
+							"\r",
+							"// Extract text from an element with a specific ID\r",
+							"let textFromElement = $('#pagetitle').text(); \r",
+							"\r",
+							"//  Check if the extracted text is as expected\r",
+							"pm.test(\"Text extracted is as expected\", function () {\r",
+							"    pm.expect(textFromElement).to.eql(\"Олівці механічні, теслярські, цангові\"); \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.art-deco.ua/catalog/grafika/olivtsi-markeri-ruchki-layneri/olivtsi/olivtsi-mekhanichni-teslyarski-tsangovi/",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"catalog",
+						"grafika",
+						"olivtsi-markeri-ruchki-layneri",
+						"olivtsi",
+						"olivtsi-mekhanichni-teslyarski-tsangovi",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

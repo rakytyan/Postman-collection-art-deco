@@ -1,0 +1,670 @@
+{
+	"info": {
+		"_postman_id": "a3f7d478-1559-4e1a-ba50-1d4dbdd71740",
+		"name": "Shopping cart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19252417",
+		"_collection_link": "https://warped-sunset-750368.postman.co/workspace/Tests-art-deco.ua~6e16e7b0-705b-4dbc-b85a-7b9df7dff017/collection/19252417-a3f7d478-1559-4e1a-ba50-1d4dbdd71740?action=share&source=collection_link&creator=19252417"
+	},
+	"item": [
+		{
+			"name": "Open Product1 page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// pm.test(\"Response time is less than 800ms\", function () {\r",
+							"//     pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"// });\r",
+							"\r",
+							"pm.test(\"Extract product ID for set variable\", function () {\r",
+							"    var responseBody = pm.response.text();\r",
+							"\r",
+							"    // Regular expression to find the script containing params[products]\r",
+							"    var re = /data-id=\"(.*?)\"/; \r",
+							"    // Adjust the regex based on the actual format\r",
+							"    var matches = responseBody.match(re);\r",
+							"    var productID = matches[1]\r",
+							"    // console.log(matches[1])        \r",
+							"    pm.expect(productID).to.not.be.empty;\r",
+							"    pm.collectionVariables.set(\"productID1\", productID);\r",
+							"});\r",
+							"// pm.collectionVariables.get(\"variable_key\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.art-deco.ua/catalog/skulptura/stek-dvostoronniy-zagladzhuvach-serpovidniy/",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"catalog",
+						"skulptura",
+						"stek-dvostoronniy-zagladzhuvach-serpovidniy",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View cart with spec.product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 800ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(800);\r",
+							"});\r",
+							"pm.test(\"Response does not contain productID1\", function () {\r",
+							"    var responseBody = pm.response.text();\r",
+							"    var productID1 = pm.collectionVariables.get(\"productID1\");\r",
+							"    // Check if the response does not include '122323'\r",
+							"    pm.expect(responseBody).to.not.include(productID1);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://www.art-deco.ua/personal/cart/",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"personal",
+						"cart",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "sessid",
+						"value": "0b963c3944aad44415cda667d3fb1c4b",
+						"type": "text"
+					},
+					{
+						"key": "site_id",
+						"value": "s1",
+						"type": "text"
+					},
+					{
+						"key": "quantity",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "action",
+						"value": "basketAction",
+						"type": "text"
+					},
+					{
+						"key": "action_var",
+						"value": "plus",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "productId",
+							"value": "{{productID1}}",
+							"type": "text"
+						},
+						{
+							"key": "action",
+							"value": "addToBasket",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www.art-deco.ua/include/ajax/addToBasket.php",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"include",
+						"ajax",
+						"addToBasket.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View cart  with 1 item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Extract cart content\", function () {\r",
+							"    var responseBody = pm.response.text();\r",
+							"\r",
+							"    // Regular expression to find the script containing params[products]\r",
+							"    var re = /products\\:\\s* (.*?),\\s*ajaxPath/; // Adjust the regex based on the actual format\r",
+							"    var matches = responseBody.match(re);\r",
+							"    \r",
+							"        var paramsProducts = matches[1].replace(/\\\\/g, \"/\").replace(/'/g, \"\\\"\");\r",
+							"        // console.log(paramsProducts)\r",
+							"        // Assuming paramsProducts is a JSON string, parse it\r",
+							"            var paramsProductsObj = JSON.parse(paramsProducts);\r",
+							"            var cart = paramsProductsObj[\"AVAILABLE\"];\r",
+							"            var productID1 = pm.collectionVariables.get(\"productID1\");\r",
+							"            console.log(cart);\r",
+							"            console.log(productID1)\r",
+							"            pm.expect(cart[productID1][\"userQuantity\"]).to.eql(\"1\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://www.art-deco.ua/personal/cart/",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"personal",
+						"cart",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "+1 item in cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sessid",
+							"value": "c9f161eef7749ace566e788d4c1c7b72",
+							"type": "text"
+						},
+						{
+							"key": "site_id",
+							"value": "s1",
+							"type": "text"
+						},
+						{
+							"key": "productId",
+							"value": "{{productID1}}",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "action",
+							"value": "basketAction",
+							"type": "text"
+						},
+						{
+							"key": "action_var",
+							"value": "plus",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www.art-deco.ua/local/templates/.default/components/bitrix/sale.basket.basket/.default/ajax.php",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"local",
+						"templates",
+						".default",
+						"components",
+						"bitrix",
+						"sale.basket.basket",
+						".default",
+						"ajax.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View cart with 2 items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Extract cart content\", function () {\r",
+							"    var responseBody = pm.response.text();\r",
+							"\r",
+							"    // Regular expression to find the script containing params[products]\r",
+							"    var re = /products\\:\\s* (.*?),\\s*ajaxPath/; // Adjust the regex based on the actual format\r",
+							"    var matches = responseBody.match(re);\r",
+							"    \r",
+							"        var paramsProducts = matches[1].replace(/\\\\/g, \"/\").replace(/'/g, \"\\\"\");\r",
+							"        // console.log(paramsProducts)\r",
+							"        // Assuming paramsProducts is a JSON string, parse it\r",
+							"            var paramsProductsObj = JSON.parse(paramsProducts);\r",
+							"            var cart = paramsProductsObj[\"AVAILABLE\"];\r",
+							"            var productID1 = pm.collectionVariables.get(\"productID1\");\r",
+							"            console.log(cart);\r",
+							"            console.log(productID1)\r",
+							"            pm.expect(cart[productID1][\"userQuantity\"]).to.eql(\"2\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://www.art-deco.ua/personal/cart/",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"personal",
+						"cart",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "-1 item from cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sessid",
+							"value": "c9f161eef7749ace566e788d4c1c7b72",
+							"type": "text"
+						},
+						{
+							"key": "site_id",
+							"value": "s1",
+							"type": "text"
+						},
+						{
+							"key": "productId",
+							"value": "{{productID1}}",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "action",
+							"value": "basketAction",
+							"type": "text"
+						},
+						{
+							"key": "action_var",
+							"value": "minus",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www.art-deco.ua/local/templates/.default/components/bitrix/sale.basket.basket/.default/ajax.php",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"local",
+						"templates",
+						".default",
+						"components",
+						"bitrix",
+						"sale.basket.basket",
+						".default",
+						"ajax.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View cart with 1 item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Extract cart content\", function () {\r",
+							"    var responseBody = pm.response.text();\r",
+							"\r",
+							"    // Regular expression to find the script containing params[products]\r",
+							"    var re = /products\\:\\s* (.*?),\\s*ajaxPath/; // Adjust the regex based on the actual format\r",
+							"    var matches = responseBody.match(re);\r",
+							"    \r",
+							"        var paramsProducts = matches[1].replace(/\\\\/g, \"/\").replace(/'/g, \"\\\"\");\r",
+							"        // console.log(paramsProducts)\r",
+							"        // Assuming paramsProducts is a JSON string, parse it\r",
+							"            var paramsProductsObj = JSON.parse(paramsProducts);\r",
+							"            var cart = paramsProductsObj[\"AVAILABLE\"];\r",
+							"            var productID1 = pm.collectionVariables.get(\"productID1\");\r",
+							"            console.log(cart);\r",
+							"            console.log(productID1)\r",
+							"            pm.expect(cart[productID1][\"userQuantity\"]).to.eql(\"1\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://www.art-deco.ua/personal/cart/",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"personal",
+						"cart",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete item from cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains error type message\", function () {\r",
+							"    var responseBody = pm.response.text();\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.expect(jsonData[\"error\"].length).to.eql(0);\r",
+							"    console.log(jsonData)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sessid",
+							"value": "c9f161eef7749ace566e788d4c1c7b72",
+							"type": "text"
+						},
+						{
+							"key": "site_id",
+							"value": "s1",
+							"type": "text"
+						},
+						{
+							"key": "productId",
+							"value": "{{productID1}}",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "action",
+							"value": "basketAction",
+							"type": "text"
+						},
+						{
+							"key": "action_var",
+							"value": "removeFromBasket",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www.art-deco.ua/local/templates/.default/components/bitrix/sale.basket.basket/.default/ajax.php",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"local",
+						"templates",
+						".default",
+						"components",
+						"bitrix",
+						"sale.basket.basket",
+						".default",
+						"ajax.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View cart without spec.product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response does not contain  productID1\", function () {\r",
+							"    var responseBody = pm.response.text();\r",
+							"    var productID1 = pm.collectionVariables.get(\"productID1\");\r",
+							"    // Check if the response does not include 'productID1'\r",
+							"    pm.expect(responseBody).to.not.include(productID1);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://www.art-deco.ua/personal/cart/",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"personal",
+						"cart",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "productID1",
+			"value": ""
+		}
+	]
+}

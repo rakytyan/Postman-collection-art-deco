@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "112f2077-211c-4661-a7fb-5ca4ea94333f",
+		"name": "Registration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19252417",
+		"_collection_link": "https://warped-sunset-750368.postman.co/workspace/Tests-art-deco.ua~6e16e7b0-705b-4dbc-b85a-7b9df7dff017/collection/19252417-112f2077-211c-4661-a7fb-5ca4ea94333f?action=share&source=collection_link&creator=19252417"
+	},
+	"item": [
+		{
+			"name": "Registration valid data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Decoding the JSON response to readable text\r",
+							"var responseBody = pm.response.text();\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(jsonData)\r",
+							"\r",
+							"// Checking that the \"ERRORS\" field is empty\r",
+							"pm.test(\"Check the value of the ERRORS key\", function() {\r",
+							"    pm.expect(jsonData.ERRORS).to.be.an('array').that.is.empty;\r",
+							"});\r",
+							"\r",
+							"// Checking that the \"OK\" field is not empty\r",
+							"pm.test(\"Field OK is not empty\", function() {\r",
+							"    pm.expect(jsonResponse.ERRORS).to.be.an('array').that.is.not.empty;\r",
+							"});\r",
+							"\r",
+							"// Checking that the key \"OK\" contains the value \"true\"\r",
+							"pm.test(\"Check the value of the OK key\", function() {\r",
+							"    pm.expect(jsonData.OK).to.equal(true);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "REGISTER[NAME]",
+							"value": "Den",
+							"type": "text"
+						},
+						{
+							"key": "REGISTER[LAST_NAME]",
+							"value": "Braun",
+							"type": "text"
+						},
+						{
+							"key": "REGISTER[LOGIN]",
+							"value": "+38(016)000-00-77",
+							"type": "text"
+						},
+						{
+							"key": "REGISTER[EMAIL]",
+							"value": "user77@hotmail.com",
+							"type": "text"
+						},
+						{
+							"key": "REGISTER[PASSWORD]",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "REGISTER[CONFIRM_PASSWORD]",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "accept",
+							"value": "on",
+							"type": "text"
+						},
+						{
+							"key": "g-recaptcha-response",
+							"value": "03AFcWeA6f4uaMChvOr4394J7o8zS8RHELjioloItTU8W6w8zZ1-rxT8q4OTRRDV9gXUXiLP1WNRcNj_Fcr_rMWiMM7D5-SMDxoQ8z-Bci4rYO6jcihz4OfanpqYI3evOAyUFyYDZcdVRkcoK8ZMjhUPScrtwWttYgbXc0aD3XlA699KFB9Vm48-FHLQut4uRGaRjRCD4VItEbHuPv9y0cKdLzp_8xMTyphGcUbT8OIuFDsP8Oxzk4SHLwIGgZiFWvtgKR8qRujyW0nkgxfsn23aufjNXdwtE2WM1CsUXsgg8eRubTDkSlcxItt9ZRZfMC9aptNtO6sQoD1E6iNe7FYQUe-GxqX9ER4uB_AP7gfys39J8GW5Ob0ArIYW-tDDrgadnjCYFB0RedrDdmKrm9PkUEiOwmzgybtNgiGSp68p--lZGsPo7LgryjSfx_g2ThaevUfKRNEriS8Z81AGXXOkQN1JwKK19L783NjRPDivc-cWK7SwC9KpOnx81HT9Y-q5PUfrdyvIj24WhPIerylwUv8JcrOsVwGFkGLV3oNNXaqJTeMh9BjpRKHFIy3gKAY8J9BjLcKG6ecEBWAJYFlluXh6M9OjAIMQ",
+							"type": "text"
+						},
+						{
+							"key": "register_submit_button",
+							"value": "Y",
+							"type": "text"
+						},
+						{
+							"key": "register_submit_button",
+							"value": "Зареєструватися",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www.art-deco.ua/include/ajax/auth/register.php",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"include",
+						"ajax",
+						"auth",
+						"register.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registration with a previously registered email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Парсинг JSON-ответа\r",
+							"var jsonResponse = pm.response.json();\r",
+							"\r",
+							"// Checking that the \"ERRORS\" field is not empty\r",
+							"pm.test(\"Field ERRORS is not empty\", function() {\r",
+							"    pm.expect(jsonResponse.ERRORS).to.be.an('array').that.is.not.empty;\r",
+							"});\r",
+							"\r",
+							"// Checking that the \"ERRORS\" field includes correct value\r",
+							"pm.test(\"Key ERRORS has correct value\", function() {\r",
+							"    var errorMessages = jsonResponse.ERRORS.join(\" \");\r",
+							"    pm.expect(errorMessages).to.include(\"Користувач з таким e-mail(user77@hotmail.com) вже існує.<br>Користувач з логіном \\\"+38(016)611-00-77\\\" вже існує.<br>\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "REGISTER[NAME]",
+							"value": "Den",
+							"type": "text"
+						},
+						{
+							"key": "REGISTER[LAST_NAME]",
+							"value": "Braun",
+							"type": "text"
+						},
+						{
+							"key": "REGISTER[LOGIN]",
+							"value": "+38(016)000-00-77",
+							"type": "text"
+						},
+						{
+							"key": "REGISTER[EMAIL]",
+							"value": "user77@hotmail.com",
+							"type": "text"
+						},
+						{
+							"key": "REGISTER[PASSWORD]",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "REGISTER[CONFIRM_PASSWORD]",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "accept",
+							"value": "on",
+							"type": "text"
+						},
+						{
+							"key": "g-recaptcha-response",
+							"value": "03AFcWeA6f4uaMChvOr4394J7o8zS8RHELjioloItTU8W6w8zZ1-rxT8q4OTRRDV9gXUXiLP1WNRcNj_Fcr_rMWiMM7D5-SMDxoQ8z-Bci4rYO6jcihz4OfanpqYI3evOAyUFyYDZcdVRkcoK8ZMjhUPScrtwWttYgbXc0aD3XlA699KFB9Vm48-FHLQut4uRGaRjRCD4VItEbHuPv9y0cKdLzp_8xMTyphGcUbT8OIuFDsP8Oxzk4SHLwIGgZiFWvtgKR8qRujyW0nkgxfsn23aufjNXdwtE2WM1CsUXsgg8eRubTDkSlcxItt9ZRZfMC9aptNtO6sQoD1E6iNe7FYQUe-GxqX9ER4uB_AP7gfys39J8GW5Ob0ArIYW-tDDrgadnjCYFB0RedrDdmKrm9PkUEiOwmzgybtNgiGSp68p--lZGsPo7LgryjSfx_g2ThaevUfKRNEriS8Z81AGXXOkQN1JwKK19L783NjRPDivc-cWK7SwC9KpOnx81HT9Y-q5PUfrdyvIj24WhPIerylwUv8JcrOsVwGFkGLV3oNNXaqJTeMh9BjpRKHFIy3gKAY8J9BjLcKG6ecEBWAJYFlluXh6M9OjAIMQ",
+							"type": "text"
+						},
+						{
+							"key": "register_submit_button",
+							"value": "Y",
+							"type": "text"
+						},
+						{
+							"key": "register_submit_button",
+							"value": "Зареєструватися",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://www.art-deco.ua/include/ajax/auth/register.php",
+					"protocol": "https",
+					"host": [
+						"www",
+						"art-deco",
+						"ua"
+					],
+					"path": [
+						"include",
+						"ajax",
+						"auth",
+						"register.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
